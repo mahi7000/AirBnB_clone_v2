@@ -129,12 +129,12 @@ class HBNBCommand(cmd.Cmd):
             if len(p) != 2:
                 continue
             key = p[0]
-            value = p[1].replace('_', ' ')
-            if value[0] != '"' and value[-1] != '"':
-                continue
-            value[1:-1].replace('\"', '\\"')
-            value[1:-1].replace('"', '\"')
-            setattr(new_instance, key, value[1:-1])
+            value = p[1]
+            if value[0] == '"' and value[-1] == '"':
+                value = value[1:-1].replace('_', ' ')
+                setattr(new_instance, key, value)
+            elif type(value) == float or type(value) == int:
+                setattr(new_instance, key, value)
         storage.save()
         print(new_instance.id)
 
