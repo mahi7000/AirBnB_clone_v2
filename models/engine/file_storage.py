@@ -54,4 +54,4 @@ class FileStorage:
         if (obj != None):
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
             if obj in self.__objects:
-                del self.__objects[key]
+                 del self.__objects[key]
