@@ -20,15 +20,13 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Update the prototype of def all(self)"""
         if cls:
             try:
                 if issubclass(classes[cls], BaseModel):
-                    cls_dict = {k: v for k, v in self.__objects.items()\
+                    cls_obj = {k: v for k, v, in FileStorage.__objects.items()\
                             if isinstance(v, classes[cls])}
-                    return cls_dict
-            except ValueError:
-                pass
+                    return cls_obj
         return FileStorage.__objects
 
 
