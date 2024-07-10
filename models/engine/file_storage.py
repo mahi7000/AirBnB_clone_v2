@@ -26,7 +26,7 @@ class FileStorage:
         else:
             cls_dict = {}
             for key, value in FileStorage.__objects.items():
-                if key.split('.')[0] == str(cls).strip():
+                if key.split('.')[0] == cls.__name__:
                     cls_dict[key] = value
             return cls_dict
 
