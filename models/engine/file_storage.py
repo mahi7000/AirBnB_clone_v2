@@ -9,11 +9,9 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+classes = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+           'State': State, 'City': City, 'Amenity': Amenity,
+           'Review': Review}
 
 
 class FileStorage:
@@ -26,8 +24,7 @@ class FileStorage:
         if cls:
             try:
                 if issubclass(classes[cls], BaseModel):
-                    cls_dict = {k:v for k, v i\
-                            self.__objects.items()\
+                    cls_dict = {k: v for k, v i self.__objects.items()\
                             if isinstance(v, classes[cls])}
                     return cls_dict
             except ValueError:
@@ -61,7 +58,7 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Deletes object from storage"""
-        if (obj != None):
+        if (obj is not None):
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
             if obj in self.__objects:
                  del self.__objects[key]
