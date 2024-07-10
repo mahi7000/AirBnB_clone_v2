@@ -21,8 +21,14 @@ class FileStorage:
 
     def all(self, cls=None):
         """Update the prototype of def all(self"""
-        return FileStorage.__objects
-
+        if cls is None:
+            return FileStorage.__objects
+        else:
+            cls_dict = {}
+            for key, value in FileStorage.__objects.items():
+                if key.split('.')[0] == cls.strip():
+                    cls_dict[key] = value
+            return cls_dict
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
