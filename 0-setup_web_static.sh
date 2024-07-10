@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Sets up your web servers for the deployment of webstatic
+# Sets up your web servers for the deployment of webstatic
 
 echo -e "Updating and doing some minor checks...\n"
 
@@ -45,3 +45,4 @@ sudo chown -R ubuntu:ubuntu /data/
 sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
+
