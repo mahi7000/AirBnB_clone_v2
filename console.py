@@ -134,8 +134,12 @@ class HBNBCommand(cmd.Cmd):
             if value[0] == '"' and value[-1] == '"':
                 value = value.strip('"').replace('_', ' ')
                 setattr(new_instance, key, value)
-            elif type(value) == float or type(value) == int:
-                setattr(new_instance, key, value)
+            else:
+                try:
+                    value = eval(value)
+                    setattr(new_instance, key, value)
+                except(SyntaxError, NameError):
+                    continue
         storage.save()
         print(new_instance.id)
 
