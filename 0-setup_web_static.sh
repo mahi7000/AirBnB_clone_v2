@@ -24,23 +24,6 @@ echo -e "\nSetting up some minor stuff.\n"
 # allowing nginx on firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Give the user ownership to website files for easy editing
-if [ -d "/var/www" ]; then
-	sudo chown -R "$USER":"$USER" /var/www
-	sudo chmod -R 755 /var/www
-else
-	sudo mkdir -p /var/www
-	sudo chown -R "$USER":"$USER" /var/www
-	sudo chmod -R 755 /var/www
-fi
-
-# create directories if not present
-for dir in /var/www/{html,error}; do
-	if ! [ -d "$dir" ]; then
-		mkdir -p "$dir"
-	fi
-done
-
 sudo mkdir -p /data/
 sudo mkdir -p /data/web_static/
 sudo mkdir -p /data/web_static/releases/
