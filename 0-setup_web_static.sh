@@ -47,7 +47,13 @@ sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 
-echo "<h1>Hello world!</h1>" > /data/web_static/releases/test/index.html
+echo "<html>
+  	<head>
+  	</head>
+  	<body>
+    		Holberton School
+  	</body>
+      </html>" > /data/web_static/releases/test/index.html
 
 
 if [ -L /data/web_static/current ]; then
