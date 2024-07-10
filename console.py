@@ -132,7 +132,6 @@ class HBNBCommand(cmd.Cmd):
             value = p[1]
             if value[0] == '"' and value[-1] == '"':
                 value = value[1:-1].replace('_', ' ')
-                value = value[1:-1].replace('"', '\"')
                 setattr(new_instance, key, value)
             elif type(value) == float or type(value) == int:
                 setattr(new_instance, key, value)
