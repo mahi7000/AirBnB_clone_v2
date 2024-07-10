@@ -24,9 +24,10 @@ class FileStorage:
         if cls:
             try:
                 if issubclass(classes[cls], BaseModel):
-                    cls_obj = {k: v for k, v, in FileStorage.__objects.items()\
-                            if isinstance(v, classes[cls])}
+                    cls_obj = {k: v for k, v, in FileStorage.__objects.items() if isinstance(v, classes[cls])}
                     return cls_obj
+            except ValueError:
+                pass
         return FileStorage.__objects
 
 
