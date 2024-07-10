@@ -148,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
         """ Method to show an individual object """
         new = args.partition(" ")
         c_name = new[0]
-        c_id = new[1]
+        c_id = new[2]
 
         # guard against trailing args
         if c_id and ' ' in c_id:
