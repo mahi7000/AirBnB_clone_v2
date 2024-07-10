@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+import shlex
 import sys
 from models.base_model import BaseModel
 from models.__init__ import storage
@@ -131,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
             key = p[0]
             value = p[1]
             if value[0] == '"' and value[-1] == '"':
-                value = value[1:-1].replace('_', ' ')
+                value = value.strip('"').replace('_', ' ')
                 setattr(new_instance, key, value)
             elif type(value) == float or type(value) == int:
                 setattr(new_instance, key, value)
@@ -147,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
         """ Method to show an individual object """
         new = args.partition(" ")
         c_name = new[0]
-        c_id = new[2]
+        c_id = new[1]
 
         # guard against trailing args
         if c_id and ' ' in c_id:
@@ -211,21 +212,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
+        objects = storage.all()
+
+        commands = shlex.split(args)
         print_list = []
 
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+        if len(commands) == 0:
+            for key, value in objects.items():
+                print('[' + str(value) + ']')
+        elif commands[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+            for key, value in objects.items():
+                if key.split('.')[0] == commands[0]:
+                    print('[' + str(value) + ']')
 
     def help_all(self):
         """ Help information for the all command """
