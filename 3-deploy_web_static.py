@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""Distributes an archive to your web servers"""
+"""Fabric script generates a .tgz archive from web_static"""
 
 from fabric.api import *
-from os.path import exists
 from datetime import datetime
+from os.path import exists
 env.hosts = ['35.175.130.143', '54.237.93.121']
 
 
@@ -39,10 +39,9 @@ def do_deploy(archive_path):
     except:
         return False
 
-
 def deploy():
-    """Gets archive path and deploys"""
-    archive_path = do_pack()
-    if archive_path is None:
-        return False
-    return do_deploy(archive_path)
+    """Gets path and deploys"""
+    archive_path = "versions/" + do_pack()
+    if archive_path is not None:
+        return do_deploy(archive_path)
+    return False
