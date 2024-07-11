@@ -3,19 +3,20 @@
 
 from fabric.api import *
 from datetime import datetime
-from os.path import exists
+from os.path import exists, isdir
 env.hosts = ['35.175.130.143', '54.237.93.121']
 
 
 def do_pack():
     """make archive"""
-    t = datetime.now()
-    archive = 'web_static_{}.tgz'.format(t.strftime("%Y%m%d%H%M%S"))
-    local('mkdir -p versions')
-    c = local('tar -cvzf versions/{} web_static'.format(archive))
-    if c is not None:
+    try:
+        t = datetime.now()
+        if isdir('versions') is False:
+            local("mkdir versions")
+        archive = 'versions/web_static_{}.tgz'.format(t.strftime("%Y%m%d%H%M%S"))
+        local('tar -cvzf {} web_static'.format(archive))
         return archive
-    else:
+    except:
         return None
 
 
@@ -42,7 +43,7 @@ def do_deploy(archive_path):
 
 def deploy():
     """Gets path and deploys"""
-    archive_path = "versions/" + do_pack()
+    archive_path = do_pack()
     if archive_path is None:
         return False
     return do_deploy(archive_path)
