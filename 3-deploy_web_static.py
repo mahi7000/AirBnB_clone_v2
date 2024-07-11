@@ -11,12 +11,14 @@ def do_pack():
     """make archive"""
     t = datetime.now()
     archive = 'web_static_{}.tgz'.format(t.strftime("%Y%m%d%H%M%S"))
-    local('mkdir -p versions')
+    if isdir('versions') is False:
+        local('mkdir versions')
     c = local('tar -cvzf versions/{} web_static'.format(archive))
     if c is not None:
         return archive
     else:
         return None
+
 
 def do_deploy(archive_path):
     """function that distributes archive to web servers"""
