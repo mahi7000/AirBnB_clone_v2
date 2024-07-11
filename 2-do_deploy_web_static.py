@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Distributes an archive to your web servers
+"""Distributes an archive to your web servers"""
 
 from fabric.api import *
 from os.path import exists
