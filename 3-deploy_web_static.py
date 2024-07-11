@@ -39,9 +39,10 @@ def do_deploy(archive_path):
     except:
         return False
 
+
 def deploy():
     """Gets path and deploys"""
     archive_path = "versions/" + do_pack()
-    if archive_path is not None:
-        return do_deploy(archive_path)
-    return False
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
