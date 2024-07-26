@@ -38,14 +38,23 @@ class DBStorage:
 
     def all(self, cls=None):
         """Query on current database session"""
+        obj_list = []
+        if cls:
+            if instance(cls, str):
+                try:
+                    cls = classes[cls]
+                except KeyError:
+                    pass
+            if issubclass(cls, Base):
+                obj_list = self.__session.query(cls).all()
+        else:
+            for subclass in Base.__subclasses__():
+                obj_list.extend(self.__session.query(subclass).all())
         new_dict = {}
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is cls:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
-        return(new_dict)
+        for obj in obj_list:
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
+            new_dict[key] = obj
+        return new_dict
 
     def new(self, obj):
         """Add object to the current database session"""
