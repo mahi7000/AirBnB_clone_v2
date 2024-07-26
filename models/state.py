@@ -10,17 +10,22 @@ import models
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
-
     if models.env == "db":
+        __tablename__ = 'states'
+        name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")
     else:
         name = ""
 
+    
+    def __init__(self, *args, **kwargs):
+        """initialize"""
+        super().__init__(*args, **kwargs)
+
     if models.env != "db":
         @propery
         def cities(self):
+            """list of city instances"""
             city_list = []
             all_cities = models.storage.all(City)
             for city in all_cities.values():
