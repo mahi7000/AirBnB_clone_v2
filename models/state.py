@@ -18,7 +18,6 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-    
     def __init__(self, *args, **kwargs):
         """initialize"""
         super().__init__(*args, **kwargs)

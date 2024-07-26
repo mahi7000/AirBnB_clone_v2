@@ -34,7 +34,7 @@ class DBStorage:
                 pool_pre_ping=True)
 
         if env == 'test':
-            Base.metadata.drop_all(self.__engine)    
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Query on current database session"""
