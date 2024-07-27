@@ -3,8 +3,8 @@
 import cmd
 import shlex
 import sys
+from models import storage
 from models.base_model import BaseModel
-from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -229,7 +229,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             for key, value in objects.items():
                 if key.split('.')[0] == commands[0]:
-                    print('[' + str(value) + ']')
+                    print('[' + str(value) +']')
 
     def help_all(self):
         """ Help information for the all command """
