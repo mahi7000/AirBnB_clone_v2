@@ -11,11 +11,11 @@ app = Flask(__name__)
 def states_list():
     """display states present in DBStorage"""
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
-    return render_template('7-states_list.html', states=st)
+    return render_template('7-states_list.html', st=states)
 
 
 @app.teardown_appcontext
-def teardown(exception):
+def teardown_a(exception):
     """close storage"""
     storage.close()
 
